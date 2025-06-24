@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { SquareChevronLeft,SquareChevronRight ,Plus,Search,FolderUp ,SendIcon  , GitGraph ,UserPlus, GithubIcon} from 'lucide-react';
 import { Spotlight } from "../ui/spotlight";
-import { Snowflake ,Github,Slack,BadgeDollarSign  ,Users,Gem} from 'lucide-react';
+import { Snowflake ,Slack,BadgeDollarSign  ,Users,Gem} from 'lucide-react';
 
 const Hero=()=>{
     const [IsOpen ,setIsOpen]=useState(false)
