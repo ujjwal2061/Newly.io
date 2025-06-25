@@ -1,6 +1,12 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import { Snowflake ,Github,Table , Boxes,Cloud  ,Users,SquareArrowOutUpRight} from 'lucide-react';
+import { motion } from "motion/react"
+
+
 const Middel=()=>{
+
+  const [isHover ,setHover]=useState<number |null>(null)
 
     interface Props{
         name:string,
@@ -8,7 +14,7 @@ const Middel=()=>{
         icons2:React.ReactNode
         desc:string
     }
-
+  console.log("Current idx is ",isHover)
    const Items:Props[]=[
     {
     name:"snowflake.com",
@@ -62,7 +68,18 @@ const Middel=()=>{
                <div className="w-full py-16 flex justify-center items-center bg-black">
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl px-4">
     {Items.map((item, idx) => (
-      <div key={idx} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+      <motion.div
+       onHoverStart={() => setHover(idx)}
+       onHoverEnd={() => setHover(null)}
+      animate={{
+        scale:isHover==idx ?1.08:1,
+      }}
+      transition={{duration:0.3, delay:0.1}}
+       key={idx} className="relative hover:cursor-pointer bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+       {isHover==idx && 
+       <div className=" absolute top-0 left-0 w-16 h-16  rounded-l-2xl opacity-40  rounded-t-2xl blur-3xl  border-2 bg-white"></div>
+       } 
+              
         <div className="flex justify-between items-center mb-4">
           <span className="text-2xl">{item.icons1}</span>
           <span className="text-2xl">{item.icons2}</span>
@@ -71,7 +88,7 @@ const Middel=()=>{
           <h3 className="text-lg font-semibold text-white">{item.name}</h3>
           <p className="text-sm text-zinc-400">{item.desc}</p>
         </div>
-      </div>
+      </motion.div>
     ))}
   </div>
 </div>

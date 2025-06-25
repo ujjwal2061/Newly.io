@@ -3,7 +3,9 @@
 import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import { AlignJustify, X } from 'lucide-react';
+import { AlignJustify, X ,Sun ,Moon} from 'lucide-react';
+import {motion} from "motion/react"
+import { useTheme } from "next-themes";
 
 
 interface NavLink {
@@ -19,18 +21,24 @@ const links: NavLink[] = [
 ];
 
 const Navbara = () => {
+    const {setTheme}=useTheme();
+
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
-            <nav className="flex items-center border-b-[1px] shadow-2xl border-gray-800/50 px-10 py-4 relative z-50">
+            <nav className=" dark:text-white flex items-center border-b-[1px] shadow-2xl border-gray-800/50 px-10 py-4 relative z-50">
                 <div className="w-full flex items-center gap-2 justify-between px-1">
-                    <div className="flex gap-1 items-center">
+                    <motion.div 
+                     initial={{ opacity:0,x:-5 }}
+                     animate={{opacity:1, x:0 }}
+                     transition={{ duration:0.3, delay:0.3}}
+                    className="flex   gap-1 items-center">
                      <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
                          <div className="w-4 h-4 bg-black rounded-sm"></div>
                     </div>
                         <h1 className="text-accent font-semibold">Newly.io</h1>
-                    </div>
+                    </motion.div>
                     <div className="hidden md:flex items-center font-semibold">
                         <div className="flex px-10 justify-between gap-12">
                             {links.map((link) => (
@@ -44,14 +52,19 @@ const Navbara = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="hidden md:flex items-center gap-4 p-0">
+                 
+                    <motion.div 
+                     initial={{ opacity:0,x:5 }}
+                     animate={{opacity:1, x:0 }}
+                     transition={{ duration:0.3, delay:0.3}}
+                    className="hidden md:flex items-center gap-4 p-0">
                         <span className="font-semibold cursor-pointer hover:text-accent transition-colors duration-200">
                             Login
                         </span>
                         <Button variant="secondary" className="hover:bg-gray-400    cursor-pointer rounded-full transition-transform duration-200">
                             Get Started
                         </Button>
-                    </div>
+                    </motion.div>
                     <button className="md:hidden cursor-pointer hover:bg-zinc-600/40 duration-300 transition-all ease-out rounded-full px-1 py-1" 
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle menu" >

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { SquareChevronLeft,SquareChevronRight ,Plus,Search,FolderUp ,SendIcon  , GitGraph ,UserPlus, GithubIcon} from 'lucide-react';
 import { Spotlight } from "../ui/spotlight";
 import { Snowflake ,Slack,BadgeDollarSign  ,Users,Gem} from 'lucide-react';
+import {motion} from "motion/react"
 
 const Hero=()=>{
     const [IsOpen ,setIsOpen]=useState(false)
@@ -13,9 +14,11 @@ const Hero=()=>{
         icons:React.ReactNode
         name:string
     }
+    const textarry="AI Powerd & Desined Slouation Specfically for Your Data "
+    const words=textarry.split("").slice(0,30)
+    const remword=textarry.split("").slice(30,55)
     const groups:Props[]=[
         {
-       
         icons:<Snowflake className=" text-blue-500"  fill="blue"/>,
         name:"Snowflake AI"
         },
@@ -42,32 +45,88 @@ const Hero=()=>{
         },
         
 ]
+// animation strating points
+ const mainPoint={
+  hidden:{opacity:0},
+  show:{
+    opacity:1,
+    transition:{
+      staggerChildren:0.2,
+      delayChildren:0.5
+    }
+  }
+ }
+
+ const firstWords={
+       hidden:{filter:"blur(10px)", opacity:0 ,y:12},
+       show:{filter:"blur(0)",opacity:1,y:0},
+ }
+ const secondWord={
+    hidden:{ opacity:0, y:10  },
+    show:{opacity:1, y:1}
+ }
+  const thirdword={
+    hidden:{ opacity:0, y:10  },
+    show:{opacity:1, y:1}
+ }
+ const button={
+  hidden:{opacity:0 ,y:12},
+  show:{opacity:1,y:0}
+ }
 return(
-<div className="relative">
+<div className="relative ">
 <div className="flex flex-col py-10 ">
-  <div className=" flex flex-col justify-center items-center gap-5  py-4   px-8 ">
-    <h1 className="sm:text-4xl md:text-5xl text-xl font-medium text-center">AI Powerd Soluation Designed <br /> Specifically for Your Data</h1>
+  <motion.div  
+    initial="hidden"
+    animate="show"
+    variants={mainPoint} className=" flex flex-col  justify-center items-center gap-5  py-4   px-8 ">
+    <div className=" text-center ">
+    {words.map((word,index)=>(
+      <motion.h1 
+       variants={firstWords}
+       transition={{duration:0.5, delay:0.1*index}}    
+      key={index} className="  mr-1 inline-block  tracking-tight sm:text-4xl md:text-5xl text-xl font-bold text-center ">{word}</motion.h1>
+    ))}
+       <h1 
+       >{remword.map((remwords,index)=>(
+        <motion.p key={index} 
+         variants={secondWord}
+        transition={{duration:0.5, delay:0.1*index}}
+        className="inline-block mr-1.5  tracking-tight font-bold sm:text-4xl md:text-5xl text-xl">{remwords}</motion.p>
+       ))}</h1>
+    </div>
     <div>
     <Spotlight  className="-top-75 left-20  sm:-top-65 sm:-left-10 md:-top-40 md:left-40"
-        fill="white"
-      />
-   <p className="text-[#5b5a5a] text-center">Effortlessly Connect Your Apps,Document,abd Database to <br />
-     Streamaline Processes and Unlock Greater Efficiency</p>
+        fill="white" />
+   <motion.p 
+    variants={thirdword}
+    transition={{ duration:0.9,delay:3}}
+    className="text-[#5b5a5a]  font-medium text-center">Effortlessly Connect Your Apps,Document,abd Database to <br />
+     Streamaline Processes and Unlock Greater Efficiency</motion.p>
     </div>
-    <div className="flex gap-2 mt-2 ">
-    <Button  variant="secondary" className="rounded-full cursor-pointer">Started For Free</Button>
-     <Button  className="rounded-full font-sans cursor-pointer bg-[#1e1f1e]" >Book a Demo</Button>
-    </div>
-  </div>
+    <motion.div 
+    variants={button}
+      transition={{duration:0.8 ,delay:4}}
+      className="flex gap-2 mt-2 ">
+      <Button  variant="secondary" className="rounded-full cursor-pointer">Started For Free</Button>
+      <Button  className="rounded-full font-sans cursor-pointer bg-[#1e1f1e]" >Book a Demo</Button>
+    </motion.div>
+   </motion.div>
 </div>
-<div className="md:px-32 sm:px-20 px-6 py-0">
-  <div className="min-h-screen   bg-black text-white font-sans ">
-      <div className="flex h-screen relative overflow-hidden">
+
+<motion.div 
+ initial={{opacity:0,filter:"blur(8px)",y:50}}
+ animate={{opacity:1,filter:"blur(0px)",y:0}}
+ transition={{duration:0.8 , delay:0.9}}
+ className="md:px-32 sm:px-20 px-6 py-0 ">
+  <div className="min-h-screen  bg-black text-white font-sans ">
+      <div className="flex  shadow-3xl h-screen relative overflow-hidden">
          {IsOpen && (
-          <aside className={` absolute sm:relative   w-44 sm:w-64 h-full bg-zinc-900 border-r border-zinc-800 p-4  flex flex-col rounded-l-2xl
-              transform transition-transform duration-500 ease-in-out
-              ${IsOpen ? 'translate-x-0' : '-translate-x-full sm:-translate-x-full'}
-            `}>
+          <aside 
+          style={{ willChange: 'transform' }}
+           className={`bg-zinc-900 absolute sm:relative w-44 sm:w-64 h-full border-r border-zinc-800 p-4 flex flex-col rounded-l-2xl transition-transform duration-500 ease-in-out ${
+           IsOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
+            }`}>
           <h2 className="text-xl font-bold mb-4">Newly.io</h2>
           <input type="text"   placeholder="Search..."  className="mb-4 px-3 py-2 rounded bg-zinc-800 text-sm border border-zinc-700 focus:outline-none"  />
           <nav className="flex-1">
@@ -135,8 +194,11 @@ return(
         </main>
       </div>
     </div>
-    </div>
-     <div className="flex  flex-col w-full  mt-2  md:px-32 px-14  py-12 ">
+    </motion.div>
+
+     <div className="flex  flex-col w-full  mt-2  md:px-32 px-8  py-12 ">
+      <div className=" custom-dash border border-dashed border-zinc-800 p-4  "
+       style={{ borderStyle: 'dashed',  borderWidth: '2px',  borderColor: '#27272a',   borderImage: 'none', }}>
         <div className="flex  w-full justify-between px-2 py-8  items-center ">
           <h1 className="text-start text-2xl font-medium">Connect Your <br />
             Knowledge
@@ -145,10 +207,10 @@ return(
              integrating emails,files,apps in one place
             </p>
          </div>
-      <div className="w-full flex  justify-center ">
+      <div className="    w-full flex  justify-center ">
         <div className=" grid grid-cols-1  sm:grid-cols-3 lg:grid-cols-6  gap-4 ">
             {groups.map((item ,idx)=>(
-                <div key={idx} className="h-52 w-42 bg-zinc-900 border m-2 border-zinc-800 rounded-3xl flex flex-col  justify-center gap-10  items-center">
+              <div key={idx} className="h-52 w-42 bg-zinc-900 border m-2 border-zinc-800 rounded-3xl flex flex-col  justify-center gap-10  items-center">
                   <div className="w-20 h-20  shadow-3xl bg-zinc-900 border border-zinc-800 flex justify-center items-center  rounded-full  p-1">
                     <div className="w-16 h-16   shadow-2xl  bg-zinc-900  border-zinc-800 flex justify-center items-center  rounded-full border p-1">
                         <div className="w-10 h-10  shadow-2xl bg-zinc-900 border border-zinc-800  flex justify-center items-center  rounded-full  p-1">
@@ -164,6 +226,7 @@ return(
         </div>
       </div> 
    </div>
+</div>
 </div>
     )
 }
