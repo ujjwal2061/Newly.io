@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { AlignJustify, X ,} from 'lucide-react';
 import {motion} from "motion/react"
-import { useTheme } from "next-themes";
+
 
 
 interface NavLink {
@@ -21,7 +21,7 @@ const links: NavLink[] = [
 ];
 
 const Navbara = () => {
-    const {setTheme}=useTheme();
+   
 
     const [isOpen, setIsOpen] = useState(false);
 
