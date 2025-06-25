@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import { AlignJustify, X ,Sun ,Moon} from 'lucide-react';
+import { AlignJustify, X ,} from 'lucide-react';
 import {motion} from "motion/react"
 import { useTheme } from "next-themes";
 
